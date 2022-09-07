@@ -1,0 +1,205 @@
+    public static void sendCOP(YoFramePoint cop){
+        int angle_mod1 = 0;
+        int angle_mod2 = 0;
+        int angle_mod3 = 0;
+        int angle_mod4 = 0;
+        int angle_mod5 = 0;
+        int angle_mod6 = 0;
+        int angle_mod7 = 0;
+        int angle_mod8 = 0;
+        double power_mod = 0.0;
+        double copY_mod = 0.0;
+        
+        
+        static double COPAngle = 0.0;
+        static double power = 0;
+        static double threshold = 0;
+        static int sendState = 0;
+        static int prevState = 0;
+        static double copX = 0;
+        static double copY = 0;
+
+        copX = cop.getX();
+		copY = cop.getY();
+		System.out.println("COP X ="+ copX);
+		System.out.println("COP Y ="+ copY);
+		System.out.println("COP Z ="+ cop.getZ());
+		
+//		COPAngle = Math.atan(copY / copX);
+		COPAngle = Math.toDegrees(Math.atan2(copX,-copY));
+		
+		
+		power = Math.sqrt(Math.pow(copX, 2)+Math.pow(copY, 2));
+		
+		System.out.println("power ="+power);
+		System.out.println("angle ="+COPAngle);
+		if(COPAngle < 0) {
+		   COPAngle = COPAngle + 360.0;
+		}
+		System.out.println("angle =" + COPAngle);
+
+
+
+		if ((copY > 0.05 - copY_mod )|| (copY < -0.05 + copY_mod)){
+            copY_mod = 0.025;
+
+            if(power > 0.05) {	
+                if (COPAngle <= 45 + angle_mod1) {
+                    angle_mod1 = 10;
+                    angle_mod2 = 0;
+                    angle_mod3 = 0;
+                    angle_mod4 = 0;
+                    angle_mod5 = 0;
+                    angle_mod6 = 0;
+                    angle_mod7 = 0;
+                    angle_mod8 = -10;
+
+                    if(power >= up_thresh){
+                        sendState = 50;
+                    }else if(power >= threshold + power_mod) {
+                        sendState = 40;
+                        power_mod = -0.05;
+                    }else {
+                        sendState = 30;
+                        power_mod = 0.05;
+                    }
+                } else if (COPAngle <= 90 + angle_mod2) {
+                    angle_mod1 = -10;
+                    angle_mod2 = 10;
+                    angle_mod3 = 0;
+                    angle_mod4 = 0;
+                    angle_mod5 = 0;
+                    angle_mod6 = 0;
+                    angle_mod7 = 0;
+                    angle_mod8 = 0;
+                    if(power >= up_thresh){
+                        sendState = 51;
+                    }else if(power >= threshold + power_mod) {
+                        sendState = 41;
+                        power_mod = -0.05;
+                    }else {
+                        sendState = 31;
+                        power_mod = 0.05;
+                    }
+                } else if (COPAngle <= 135 + angle_mod3){
+                    angle_mod1 = 0;
+                    angle_mod2 = -10;
+                    angle_mod3 = 10;
+                    angle_mod4 = 0;
+                    angle_mod5 = 0;
+                    angle_mod6 = 0;
+                    angle_mod7 = 0;
+                    angle_mod8 = 0;
+                    if(power >= up_thresh){
+                        sendState = 52;
+                    }else if(power >= threshold + power_mod) {
+                        sendState = 42;
+                        power_mod = -0.05;
+                    }else {
+                        sendState = 32;
+                        power_mod = 0.05;
+                    }
+                } else if (COPAngle <= 180 + angle_mod4){
+                    angle_mod1 = 0;
+                    angle_mod2 = 0;
+                    angle_mod3 = -10;
+                    angle_mod4 = 10;
+                    angle_mod5 = 0;
+                    angle_mod6 = 0;
+                    angle_mod7 = 0;
+                    angle_mod8 = 0;
+                    if(power >= up_thresh){
+                        sendState = 53;
+                    }else if(power >= threshold + power_mod) {
+                        sendState = 43;
+                        power_mod = -0.05;
+                    }else {
+                        sendState = 33;
+                        power_mod = 0.05;
+                    }
+                } else if (COPAngle <= 225 + angle_mod5){
+                    angle_mod1 = 0;
+                    angle_mod2 = 0;
+                    angle_mod3 = 0;
+                    angle_mod4 = -10;
+                    angle_mod5 = 10;
+                    angle_mod6 = 0;
+                    angle_mod7 = 0;
+                    angle_mod8 = 0;
+                    if(power >= up_thresh){
+                        sendState = 54;
+                    }else if(power >= threshold + power_mod) {
+                        sendState = 44;
+                        power_mod = -0.05;
+                    }else {
+                        sendState = 34;
+                        power_mod = 0.05;
+                    }
+                } else if (COPAngle <= 270 + angle_mod6){
+                    angle_mod1 = 0;
+                    angle_mod2 = 0;
+                    angle_mod3 = 0;
+                    angle_mod4 = 0;
+                    angle_mod5 = -10;
+                    angle_mod6 = 10;
+                    angle_mod7 = 0;
+                    angle_mod8 = 0;
+                    if(power >= up_thresh){
+                        sendState = 55;
+                    }else if(power >= threshold + power_mod) {
+                        sendState = 45;
+                        power_mod = -0.05;
+                    }else {
+                        sendState = 35;
+                        power_mod = 0.05;
+                    }
+                } else if (COPAngle <= 315 + angle_mod7){
+                    angle_mod1 = 0;
+                    angle_mod2 = 0;
+                    angle_mod3 = 0;
+                    angle_mod4 = 0;
+                    angle_mod5 = 0;
+                    angle_mod6 = -10;
+                    angle_mod7 = 10;
+                    angle_mod8 = 0;
+                    if(power >= up_thresh){
+                        sendState = 56;
+                    }else if(power >= threshold + power_mod) {
+                        sendState = 46;
+                        power_mod = -0.05;
+                    }else {
+                        sendState = 36;
+                        power_mod = 0.05;
+                    }
+                } else if (COPAngle <= 360 + angle_mod8){
+                    angle_mod1 = 0;
+                    angle_mod2 = 0;
+                    angle_mod3 = 0;
+                    angle_mod4 = 0;
+                    angle_mod5 = 0;
+                    angle_mod6 = 0;
+                    angle_mod7 = -10;
+                    angle_mod8 = 10;
+                    if(power >= up_thresh){
+                        sendState = 57;
+                    }else if(power >= threshold + power_mod) {
+                        sendState = 47;
+                        power_mod = -0.05;
+                    }else {
+                        sendState = 37;
+                        power_mod = 0.05;
+                    }
+                }
+            }else {
+            sendState = 0;
+            }
+        }else{
+            copY_mod = 0.0;
+            sendState = 0;
+        }
+		
+		if(prevState != sendState) {
+		   sendToSleeve(sendState);
+		   prevState = sendState;
+		}
+	}
